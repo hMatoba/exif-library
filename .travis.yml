@@ -17,7 +17,7 @@ before_deploy:
   - mkdir -p exif-library/dist
   - cp ./dist/exif-library.js ./exif-library/dist
   - cp ./dist/exif-library.js.map ./exif-library/dist
-  - cp ./dist/index.d.ts ./exif-library/dist
+  - cp ./dist/*.d.ts ./exif-library/dist
   - cp ./README.md ./exif-library/
   - cp ./package.json ./exif-library/
   - cp ./LICENSE.txt ./exif-library/
