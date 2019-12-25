@@ -1,9 +1,9 @@
 const fs = require('fs');
-const nodePiexif = require('../../dist/piexif');
+const exifLib = require('../../dist/exif-library');
 
 const timeout = 5000;
 const jpegBinary = fs.readFileSync("./tests/files/r_canon.jpg").toString("binary");
-const piexifPath = '../../dist/piexif.js';
+const exifLibPath = '../../dist/exif-library.js';
 
 let page;
 beforeAll(async () => {
@@ -21,13 +21,13 @@ it('test to check running puppeteer', async () => {
 });
 
 it('should be same output from load on node and browser ', async () => {
-  const nodeOutput = nodePiexif.load(jpegBinary);
+  const nodeOutput = exifLib.load(jpegBinary);
   await page.addScriptTag({
-    path: require.resolve(piexifPath)
+    path: require.resolve(exifLibPath)
   });
   
   const browserOutput = await page.evaluate((jpeg) => {
-      return piexif.load(jpeg);
+      return exifLib.load(jpeg);
     },
     jpegBinary
   );
@@ -41,12 +41,12 @@ it('should be same output from dump on node and browser ', async () => {
       '257': 10
     }
   };
-  const nodeOutput = nodePiexif.dump(exif);
+  const nodeOutput = exifLib.dump(exif);
   await page.addScriptTag({
-    path: require.resolve(piexifPath)
+    path: require.resolve(exifLibPath)
   });
   const browserOutput = await page.evaluate((exifObj) => {
-      return piexif.dump(exifObj);
+      return exifLib.dump(exifObj);
     },
     exif
   );
@@ -60,13 +60,13 @@ it('should be same output from insert on node and browser ', async () => {
       '257': 10
     }
   };
-  const exifBinary = nodePiexif.dump(exif);
-  const nodeOutput = nodePiexif.insert(exifBinary, jpegBinary);;
+  const exifBinary = exifLib.dump(exif);
+  const nodeOutput = exifLib.insert(exifBinary, jpegBinary);;
   await page.addScriptTag({
-    path: require.resolve(piexifPath)
+    path: require.resolve(exifLibPath)
   });
   const browserOutput = await page.evaluate((exif, jpeg) => {
-      return piexif.insert(exif, jpeg);
+      return exifLib.insert(exif, jpeg);
     },
     exifBinary,
     jpegBinary
@@ -75,12 +75,12 @@ it('should be same output from insert on node and browser ', async () => {
 });
 
 it('should be same output from remove on node and browser ', async () => {
-  const nodeOutput = nodePiexif.remove(jpegBinary);
+  const nodeOutput = exifLib.remove(jpegBinary);
   await page.addScriptTag({
-    path: require.resolve(piexifPath)
+    path: require.resolve(exifLibPath)
   });
   const browserOutput = await page.evaluate((jpeg) => {
-      return piexif.remove(jpeg);
+      return exifLib.remove(jpeg);
     },
     jpegBinary
   );

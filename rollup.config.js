@@ -5,7 +5,7 @@ export default {
   input: './src/index.ts',
   output: {
     file: './dist/exif-library.js',
-    name: 'exif-library',
+    name: 'exifLib',
     format: 'umd',
     sourcemap: true,
   },
