@@ -14,19 +14,19 @@ script:
   - npm run node-test
 
 before_deploy:
-  - mkdir -p piexifjs/dist
-  - cp ./dist/piexif.js ./piexifjs/dist
-  - cp ./dist/piexif.js.map ./piexifjs/dist
-  - cp ./dist/index.d.ts ./piexifjs/dist
-  - cp ./README.md ./piexifjs/
-  - cp ./package.json ./piexifjs/
-  - cp ./LICENSE.txt ./piexifjs/
-  - zip -r piexifjs.zip ./piexifjs
-  - rm -rf piexifjs
+  - mkdir -p exif-library/dist
+  - cp ./dist/exif-library.js ./exif-library/dist
+  - cp ./dist/exif-library.js.map ./exif-library/dist
+  - cp ./dist/index.d.ts ./exif-library/dist
+  - cp ./README.md ./exif-library/
+  - cp ./package.json ./exif-library/
+  - cp ./LICENSE.txt ./exif-library/
+  - zip -r exif-library.zip ./exif-library
+  - rm -rf exif-library
 deploy:
   - provider: releases
     api_key: "${GITHUB_OAUTH_TOKEN}"
-    file: piexifjs.zip
+    file: exif-library.zip
     skip_cleanup: true
     on:
       tags: true

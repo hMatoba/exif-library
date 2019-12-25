@@ -4,8 +4,8 @@ import { eslint } from 'rollup-plugin-eslint';
 export default {
   input: './src/index.ts',
   output: {
-    file: './dist/piexif.js',
-    name: 'piexif',
+    file: './dist/exif-library.js',
+    name: 'exif-library',
     format: 'umd',
     sourcemap: true,
   },

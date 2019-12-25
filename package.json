@@ -1,12 +1,12 @@
 {
-  "name": "piexifjs",
-  "version": "2.0.0-beta.009",
+  "name": "exif-libraru",
+  "version": "2.0.0-alpha.0",
   "description": "Read and write exif.",
-  "main": "dist/piexif.js",
+  "main": "dist/exif-library.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist/piexif.js",
-    "dist/piexif.js.map",
+    "dist/exif-library.js",
+    "dist/exif-library.js.map",
     "dist/*.d.ts",
     "LICENSE.txt",
     "README.md",
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/hMatoba/piexifjs.git"
+    "url": "https://github.com/hMatoba/exif-library.git"
   },
   "keywords": [
     "jpeg",
@@ -39,9 +39,9 @@
   "author": "hMatoba, Joachim Holwech",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hMatoba/piexifjs/issues"
+    "url": "https://github.com/hMatoba/exif-library/issues"
   },
-  "homepage": "https://github.com/hMatoba/piexifjs",
+  "homepage": "https://github.com/hMatoba/exif-library",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.4.0",
     "@typescript-eslint/parser": "^2.4.0",
