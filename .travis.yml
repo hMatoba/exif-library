@@ -30,6 +30,7 @@ deploy:
     skip_cleanup: true
     on:
       tags: true
+      condition: $TRAVIS_NODE_VERSION = 10
   - provider: npm
     email: "${NPM_MYMAIL}"
     api_key: "${NPM_TOKEN}"
