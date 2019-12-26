@@ -25,6 +25,7 @@
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint \"*/**/*.ts\"",
+    "lint-auto-fix": "eslint \"*/**/*.ts\" --fix",
     "node-test": "jest --config=jest.node.config.js",
     "browser-test": "jest --config=jest.puppeteer.config.js",
     "test": "npm run node-test && npm run browser-test",
