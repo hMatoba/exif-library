@@ -24,7 +24,10 @@ export const load = (bytes: string): IExif => {
 
   const zerothIfdPointer = _utils.unpack(
     exifReader.endianMark + "L",
-    exifReader.tiftag.slice(IFD_POINTER_BEGIN, IFD_POINTER_BEGIN + IFD_POINTER_LENGTH)
+    exifReader.tiftag.slice(
+      IFD_POINTER_BEGIN,
+      IFD_POINTER_BEGIN + IFD_POINTER_LENGTH
+    )
   )[0];
   zerothIfd = exifReader.getIfd(zerothIfdPointer, "0th");
   exifObj["0th"] = zerothIfd;
@@ -47,14 +50,29 @@ export const load = (bytes: string): IExif => {
     exifObj["Interop"] = interopIfd;
   }
 
-  const firstIfdPointerBytes = exifReader.getFirstIfdPointer(zerothIfdPointer, "0th");
+  const firstIfdPointerBytes = exifReader.getFirstIfdPointer(
+    zerothIfdPointer,
+    "0th"
+  );
   if (firstIfdPointerBytes != "\x00\x00\x00\x00") {
-    const firstIfdPointer = _utils.unpack(exifReader.endianMark + "L", firstIfdPointerBytes)[0];
+    const firstIfdPointer = _utils.unpack(
+      exifReader.endianMark + "L",
+      firstIfdPointerBytes
+    )[0];
     firstIfd = exifReader.getIfd(firstIfdPointer, "1st");
     exifObj["1st"] = firstIfd;
-    if (firstIfd !== null && TagValues.ImageIFD.JPEGInterchangeFormat in firstIfd && TagValues.ImageIFD.JPEGInterchangeFormatLength in firstIfd) {
-      const thumbnailEnd = (firstIfd[TagValues.ImageIFD.JPEGInterchangeFormat] as number) + (firstIfd[TagValues.ImageIFD.JPEGInterchangeFormatLength] as number);
-      thumbnail = exifReader.tiftag.slice(firstIfd[TagValues.ImageIFD.JPEGInterchangeFormat] as number, thumbnailEnd);
+    if (
+      firstIfd !== null &&
+      TagValues.ImageIFD.JPEGInterchangeFormat in firstIfd &&
+      TagValues.ImageIFD.JPEGInterchangeFormatLength in firstIfd
+    ) {
+      const thumbnailEnd =
+        (firstIfd[TagValues.ImageIFD.JPEGInterchangeFormat] as number) +
+        (firstIfd[TagValues.ImageIFD.JPEGInterchangeFormatLength] as number);
+      thumbnail = exifReader.tiftag.slice(
+        firstIfd[TagValues.ImageIFD.JPEGInterchangeFormat] as number,
+        thumbnailEnd
+      );
       exifObj["thumbnail"] = thumbnail;
     }
   }

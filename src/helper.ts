@@ -6,7 +6,11 @@ export const GPSHelper = {
     const deg = Math.floor(degAbs);
     const min = Math.floor(minFloat);
     const sec = Math.round(secFloat * 100);
-    return [[deg, 1], [min, 1], [sec, 100]];
+    return [
+      [deg, 1],
+      [min, 1],
+      [sec, 100]
+    ];
   },
 
   dmsRationalToDeg: (dmsArray: Array<Array<number>>, ref: string): number => {

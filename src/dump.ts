@@ -2,7 +2,6 @@ import * as _utils from "./utils";
 import { Types, IExif, IExifElement } from "./interfaces";
 import { TagValues } from "./constants";
 
-
 export const dump = (originalExifObj: IExif): string => {
   const TIFF_HEADER_LENGTH = 8;
 

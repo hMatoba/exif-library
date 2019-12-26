@@ -5,7 +5,7 @@ import { Tags } from "./constants";
 export class ExifReader {
   tiftag: string;
   endianMark: string;
-  
+
   constructor(exifBinary: string) {
     let segments, app1;
     if (exifBinary.slice(0, 2) == "\xff\xd8") {
@@ -92,7 +92,9 @@ export class ExifReader {
     return firstIfdPointer;
   };
 
-  convertValue = (val: _utils.ValueSet): string | number | number[] | number[][] => {
+  convertValue = (
+    val: _utils.ValueSet
+  ): string | number | number[] | number[][] => {
     let data = null;
     const t = val.type;
     const length = val.length;
@@ -144,7 +146,10 @@ export class ExifReader {
           this.tiftag.slice(pointer, pointer + length * 4)
         );
       } else {
-        data = _utils.unpack(this.endianMark + _utils.nLoopStr("L", length), value);
+        data = _utils.unpack(
+          this.endianMark + _utils.nLoopStr("L", length),
+          value
+        );
       }
     } else if (t == 5) {
       // RATIONAL
@@ -227,7 +232,7 @@ export class ExifReader {
     }
   };
 
-  setEndianMark = () => {
+  setEndianMark = (): void => {
     if (this.tiftag == null) {
       throw new Error("Given data doesn't have exif.");
     }
@@ -236,6 +241,5 @@ export class ExifReader {
     } else {
       this.endianMark = ">";
     }
-  
-  }
+  };
 }
