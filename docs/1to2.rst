@@ -4,4 +4,4 @@
 
 *piexif.TAGS* -> *piexif.Tags*
 
-*piexif.\*IFD* -> *piexif.TagValues.\*IFD*
+*piexif.\*IFD* -> *piexif.TagNumbers.\*IFD*

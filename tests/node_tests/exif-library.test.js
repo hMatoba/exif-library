@@ -13,8 +13,8 @@ test('"load" returns correct value" -- 1', () => {
   const exifBinary = 'Exif\x00\x00MM\x00*\x00\x00\x00\x08\x00\x02\x01\x00\x00\x04\x00\x00\x00\x01\x00\x00\x00\n\x01\x01\x00\x04\x00\x00\x00\x01\x00\x00\x00\n\x00\x00\x00\x00';
   const correctObj = {
     '0th': {
-      [exifLib.TagValues.ImageIFD.ImageWidth]: 10,
-      [exifLib.TagValues.ImageIFD.ImageLength]: 10
+      [exifLib.TagNumbers.ImageIFD.ImageWidth]: 10,
+      [exifLib.TagNumbers.ImageIFD.ImageLength]: 10
     }
   };
   const exifObj = exifLib.load(exifBinary);
@@ -24,8 +24,8 @@ test('"load" returns correct value" -- 1', () => {
 test('"dump" returns correct value" -- 1', () => {
   const exifObj = {
     '0th': {
-      [exifLib.TagValues.ImageIFD.ImageWidth]: 10,
-      [exifLib.TagValues.ImageIFD.ImageLength]: 10
+      [exifLib.TagNumbers.ImageIFD.ImageWidth]: 10,
+      [exifLib.TagNumbers.ImageIFD.ImageLength]: 10
     }
   };
   const exifBinary = exifLib.dump(exifObj);
@@ -36,7 +36,7 @@ test('"dump" returns correct value" -- 1', () => {
 test('"dump" throws "ValueConvertError"" -- 1', () => {
   const exifObj = {
     '0th': {
-      [exifLib.TagValues.ImageIFD.ImageWidth]: "10"
+      [exifLib.TagNumbers.ImageIFD.ImageWidth]: "10"
     }
   };
   expect(
@@ -47,19 +47,19 @@ test('"dump" throws "ValueConvertError"" -- 1', () => {
 test('Compare "load" output with some correct values - BIG ENDIAN FILE - 1', () => {
   const jpegBinary = fs.readFileSync("./tests/files/r_canon.jpg").toString("binary");
   const exifObj = exifLib.load(jpegBinary);
-  expect(exifObj['0th'][exifLib.TagValues.ImageIFD.Make]).toBe('Canon');
-  expect(exifObj['0th'][exifLib.TagValues.ImageIFD.Orientation]).toBe(1);
-  expect(exifObj['Exif'][exifLib.TagValues.ExifIFD.ExposureTime]).toEqual([1, 50]);
-  expect(exifObj['Exif'][exifLib.TagValues.ExifIFD.PixelXDimension]).toBe(4352);
+  expect(exifObj['0th'][exifLib.TagNumbers.ImageIFD.Make]).toBe('Canon');
+  expect(exifObj['0th'][exifLib.TagNumbers.ImageIFD.Orientation]).toBe(1);
+  expect(exifObj['Exif'][exifLib.TagNumbers.ExifIFD.ExposureTime]).toEqual([1, 50]);
+  expect(exifObj['Exif'][exifLib.TagNumbers.ExifIFD.PixelXDimension]).toBe(4352);
 });
 
 test('Compare "load" output with soem correct values - LITTLE ENDIAN FILE - 1', () => {
   const jpegBinary = fs.readFileSync("./tests/files/r_sony.jpg").toString("binary");
   const exifObj = exifLib.load(jpegBinary);
-  expect(exifObj['0th'][exifLib.TagValues.ImageIFD.Make]).toBe('SONY');
-  expect(exifObj['0th'][exifLib.TagValues.ImageIFD.Orientation]).toBe(1);
-  expect(exifObj['Exif'][exifLib.TagValues.ExifIFD.ExposureTime]).toEqual([1, 125]);
-  expect(exifObj['1st'][exifLib.TagValues.ImageIFD.JPEGInterchangeFormatLength]).toBe(13127);
+  expect(exifObj['0th'][exifLib.TagNumbers.ImageIFD.Make]).toBe('SONY');
+  expect(exifObj['0th'][exifLib.TagNumbers.ImageIFD.Orientation]).toBe(1);
+  expect(exifObj['Exif'][exifLib.TagNumbers.ExifIFD.ExposureTime]).toEqual([1, 125]);
+  expect(exifObj['1st'][exifLib.TagNumbers.ImageIFD.JPEGInterchangeFormatLength]).toBe(13127);
 });
 
 test('round trip "load" and "dump" -- 1', () => {
@@ -69,14 +69,14 @@ test('round trip "load" and "dump" -- 1', () => {
   const exifObj2 = exifLib.load(exifBinary);
 
   // remove pointer values
-  delete exifObj1['0th'][exifLib.TagValues.ImageIFD.ExifTag];
-  delete exifObj2['0th'][exifLib.TagValues.ImageIFD.ExifTag];
-  delete exifObj1['1st'][exifLib.TagValues.ImageIFD.JPEGInterchangeFormat];
-  delete exifObj2['1st'][exifLib.TagValues.ImageIFD.JPEGInterchangeFormat];
-  delete exifObj1['1st'][exifLib.TagValues.ImageIFD.JPEGInterchangeFormatLength];
-  delete exifObj2['1st'][exifLib.TagValues.ImageIFD.JPEGInterchangeFormatLength];
-  delete exifObj1['Exif'][exifLib.TagValues.ExifIFD.InteroperabilityTag];
-  delete exifObj2['Exif'][exifLib.TagValues.ExifIFD.InteroperabilityTag];
+  delete exifObj1['0th'][exifLib.TagNumbers.ImageIFD.ExifTag];
+  delete exifObj2['0th'][exifLib.TagNumbers.ImageIFD.ExifTag];
+  delete exifObj1['1st'][exifLib.TagNumbers.ImageIFD.JPEGInterchangeFormat];
+  delete exifObj2['1st'][exifLib.TagNumbers.ImageIFD.JPEGInterchangeFormat];
+  delete exifObj1['1st'][exifLib.TagNumbers.ImageIFD.JPEGInterchangeFormatLength];
+  delete exifObj2['1st'][exifLib.TagNumbers.ImageIFD.JPEGInterchangeFormatLength];
+  delete exifObj1['Exif'][exifLib.TagNumbers.ExifIFD.InteroperabilityTag];
+  delete exifObj2['Exif'][exifLib.TagNumbers.ExifIFD.InteroperabilityTag];
 
   expect(exifObj1).toEqual(exifObj2);
 });

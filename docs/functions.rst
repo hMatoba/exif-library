@@ -46,20 +46,20 @@ dump
     let zeroth = {};
     let exif = {};
     let gps = {};
-    zeroth[piexif.TagValues.ImageIFD.Make] = "Make";
-    zeroth[piexif.TagValues.ImageIFD.XResolution] = [777, 1];
-    zeroth[piexif.TagValues.ImageIFD.YResolution] = [777, 1];
-    zeroth[piexif.TagValues.ImageIFD.Software] = "Piexifjs";
-    exif[piexif.TagValues.ExifIFD.DateTimeOriginal] = "2010:10:10 10:10:10";
-    exif[piexif.TagValues.ExifIFD.LensMake] = "LensMake";
-    exif[piexif.TagValues.ExifIFD.Sharpness] = 777;
-    exif[piexif.TagValues.ExifIFD.LensSpecification] = [[1, 1], [1, 1], [1, 1], [1, 1]];
-    gps[piexif.TagValues.GPSIFD.GPSVersionID] = [7, 7, 7, 7];
-    gps[piexif.TagValues.GPSIFD.GPSDateStamp] = "1999:99:99 99:99:99";
+    zeroth[piexif.TagNumbers.ImageIFD.Make] = "Make";
+    zeroth[piexif.TagNumbers.ImageIFD.XResolution] = [777, 1];
+    zeroth[piexif.TagNumbers.ImageIFD.YResolution] = [777, 1];
+    zeroth[piexif.TagNumbers.ImageIFD.Software] = "Piexifjs";
+    exif[piexif.TagNumbers.ExifIFD.DateTimeOriginal] = "2010:10:10 10:10:10";
+    exif[piexif.TagNumbers.ExifIFD.LensMake] = "LensMake";
+    exif[piexif.TagNumbers.ExifIFD.Sharpness] = 777;
+    exif[piexif.TagNumbers.ExifIFD.LensSpecification] = [[1, 1], [1, 1], [1, 1], [1, 1]];
+    gps[piexif.TagNumbers.GPSIFD.GPSVersionID] = [7, 7, 7, 7];
+    gps[piexif.TagNumbers.GPSIFD.GPSDateStamp] = "1999:99:99 99:99:99";
     let exifObj = {"0th":zeroth, "Exif":exif, "GPS":gps};
     const exifbytes = piexif.dump(exifObj);
 
-Properties of *piexif.TagValues.ImageIFD* help to make 0thIFD and 1stIFD. *piexif.TagValues.ExifIFD* is for ExifIFD. *piexif.TagValues.GPSIFD* is for GPSIFD. *piexif.InteropIFD* is for InteroperabilityIFD.
+Properties of *piexif.TagNumbers.ImageIFD* help to make 0thIFD and 1stIFD. *piexif.TagNumbers.ExifIFD* is for ExifIFD. *piexif.TagNumbers.GPSIFD* is for GPSIFD. *piexif.InteropIFD* is for InteroperabilityIFD.
 
 .. note:: ExifTag(34665), GPSTag(34853), and InteroperabilityTag(40965) in 0thIFD automatically are set appropriate value.
 .. note:: JPEGInterchangeFormat(513), and JPEGInterchangeFormatLength(514) in 1stIFD automatically are set appropriate value.

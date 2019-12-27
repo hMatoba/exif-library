@@ -68,7 +68,7 @@ export interface ITags {
   "1st": ITagsElement;
 }
 
-export interface ITagValues {
+export interface ITagNumbers {
   ImageIFD: {
     ProcessingSoftware: number;
     NewSubfileType: number;

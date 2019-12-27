@@ -1,6 +1,6 @@
 import * as _utils from "./utils";
 import { IExif, IExifElement } from "./interfaces";
-import { TagValues } from "./constants";
+import { TagNumbers } from "./constants";
 import { ExifReader } from "./exif_reader";
 
 export const load = (bytes: string): IExif => {
@@ -32,20 +32,20 @@ export const load = (bytes: string): IExif => {
   zerothIfd = exifReader.getIfd(zerothIfdPointer, "0th");
   exifObj["0th"] = zerothIfd;
 
-  if (zerothIfd !== null && TagValues.ImageIFD.ExifTag in zerothIfd) {
-    const exifIfdPointer = zerothIfd[TagValues.ImageIFD.ExifTag];
+  if (zerothIfd !== null && TagNumbers.ImageIFD.ExifTag in zerothIfd) {
+    const exifIfdPointer = zerothIfd[TagNumbers.ImageIFD.ExifTag];
     exifIfd = exifReader.getIfd(exifIfdPointer as number, "Exif");
     exifObj["Exif"] = exifIfd;
   }
 
-  if (zerothIfd !== null && TagValues.ImageIFD.GPSTag in zerothIfd) {
-    const gpsIfdPointer = zerothIfd[TagValues.ImageIFD.GPSTag];
+  if (zerothIfd !== null && TagNumbers.ImageIFD.GPSTag in zerothIfd) {
+    const gpsIfdPointer = zerothIfd[TagNumbers.ImageIFD.GPSTag];
     gpsIfd = exifReader.getIfd(gpsIfdPointer as number, "GPS");
     exifObj["GPS"] = gpsIfd;
   }
 
-  if (exifIfd !== null && TagValues.ExifIFD.InteroperabilityTag in exifIfd) {
-    const interopIfdPointer = exifIfd[TagValues.ExifIFD.InteroperabilityTag];
+  if (exifIfd !== null && TagNumbers.ExifIFD.InteroperabilityTag in exifIfd) {
+    const interopIfdPointer = exifIfd[TagNumbers.ExifIFD.InteroperabilityTag];
     interopIfd = exifReader.getIfd(interopIfdPointer as number, "Interop");
     exifObj["Interop"] = interopIfd;
   }
@@ -63,14 +63,14 @@ export const load = (bytes: string): IExif => {
     exifObj["1st"] = firstIfd;
     if (
       firstIfd !== null &&
-      TagValues.ImageIFD.JPEGInterchangeFormat in firstIfd &&
-      TagValues.ImageIFD.JPEGInterchangeFormatLength in firstIfd
+      TagNumbers.ImageIFD.JPEGInterchangeFormat in firstIfd &&
+      TagNumbers.ImageIFD.JPEGInterchangeFormatLength in firstIfd
     ) {
       const thumbnailEnd =
-        (firstIfd[TagValues.ImageIFD.JPEGInterchangeFormat] as number) +
-        (firstIfd[TagValues.ImageIFD.JPEGInterchangeFormatLength] as number);
+        (firstIfd[TagNumbers.ImageIFD.JPEGInterchangeFormat] as number) +
+        (firstIfd[TagNumbers.ImageIFD.JPEGInterchangeFormatLength] as number);
       thumbnail = exifReader.tiftag.slice(
-        firstIfd[TagValues.ImageIFD.JPEGInterchangeFormat] as number,
+        firstIfd[TagNumbers.ImageIFD.JPEGInterchangeFormat] as number,
         thumbnailEnd
       );
       exifObj["thumbnail"] = thumbnail;

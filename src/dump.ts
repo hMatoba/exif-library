@@ -1,6 +1,6 @@
 import * as _utils from "./utils";
 import { Types, IExif, IExifElement } from "./interfaces";
-import { TagValues } from "./constants";
+import { TagNumbers } from "./constants";
 
 export const dump = (originalExifObj: IExif): string => {
   const TIFF_HEADER_LENGTH = 8;
@@ -28,34 +28,34 @@ export const dump = (originalExifObj: IExif): string => {
     ("Exif" in exifObj && Object.keys(exifObj["Exif"]).length) ||
     ("Interop" in exifObj && Object.keys(exifObj["Interop"]).length)
   ) {
-    zerothIfd[TagValues.ImageIFD.ExifTag] = 1;
+    zerothIfd[TagNumbers.ImageIFD.ExifTag] = 1;
     existExifIfd = true;
     exifIfd = exifObj["Exif"];
     if ("Interop" in exifObj && Object.keys(exifObj["Interop"]).length) {
-      exifIfd[TagValues.ExifIFD.InteroperabilityTag] = 1;
+      exifIfd[TagNumbers.ExifIFD.InteroperabilityTag] = 1;
       existInteropIfd = true;
       interopIfd = exifObj["Interop"];
     } else if (
       Object.keys(exifIfd).indexOf(
-        TagValues.ExifIFD.InteroperabilityTag.toString()
+        TagNumbers.ExifIFD.InteroperabilityTag.toString()
       ) > -1
     ) {
-      delete exifIfd[TagValues.ExifIFD.InteroperabilityTag];
+      delete exifIfd[TagNumbers.ExifIFD.InteroperabilityTag];
     }
   } else if (
-    Object.keys(zerothIfd).indexOf(TagValues.ImageIFD.ExifTag.toString()) > -1
+    Object.keys(zerothIfd).indexOf(TagNumbers.ImageIFD.ExifTag.toString()) > -1
   ) {
-    delete zerothIfd[TagValues.ImageIFD.ExifTag];
+    delete zerothIfd[TagNumbers.ImageIFD.ExifTag];
   }
 
   if ("GPS" in exifObj && Object.keys(exifObj["GPS"]).length) {
-    zerothIfd[TagValues.ImageIFD.GPSTag] = 1;
+    zerothIfd[TagNumbers.ImageIFD.GPSTag] = 1;
     existGpsIfd = true;
     gpsIfd = exifObj["GPS"];
   } else if (
-    Object.keys(zerothIfd).indexOf(TagValues.ImageIFD.GPSTag.toString()) > -1
+    Object.keys(zerothIfd).indexOf(TagNumbers.ImageIFD.GPSTag.toString()) > -1
   ) {
-    delete zerothIfd[TagValues.ImageIFD.GPSTag];
+    delete zerothIfd[TagNumbers.ImageIFD.GPSTag];
   }
 
   if (
@@ -64,8 +64,8 @@ export const dump = (originalExifObj: IExif): string => {
     exifObj["thumbnail"] != null
   ) {
     existFirstIfd = true;
-    exifObj["1st"][TagValues.ImageIFD.JPEGInterchangeFormat] = 1;
-    exifObj["1st"][TagValues.ImageIFD.JPEGInterchangeFormatLength] = 1;
+    exifObj["1st"][TagNumbers.ImageIFD.JPEGInterchangeFormat] = 1;
+    exifObj["1st"][TagNumbers.ImageIFD.JPEGInterchangeFormatLength] = 1;
     firstIfd = exifObj["1st"];
   }
 
@@ -128,7 +128,7 @@ export const dump = (originalExifObj: IExif): string => {
   if (existExifIfd) {
     const pointerValue = TIFF_HEADER_LENGTH + zerothIfdLength;
     const pointerBytes = _utils.pack(">L", [pointerValue]);
-    const key = TagValues.ImageIFD.ExifTag;
+    const key = TagNumbers.ImageIFD.ExifTag;
     const keyBytes = _utils.pack(">H", [key]);
     const typeBytes = _utils.pack(">H", [Types["Long"]]);
     const lengthBytes = _utils.pack(">L", [1]);
@@ -137,7 +137,7 @@ export const dump = (originalExifObj: IExif): string => {
   if (existGpsIfd) {
     const pointerValue = TIFF_HEADER_LENGTH + zerothIfdLength + exifIfdLength;
     const pointerBytes = _utils.pack(">L", [pointerValue]);
-    const key = TagValues.ImageIFD.GPSTag;
+    const key = TagNumbers.ImageIFD.GPSTag;
     const keyBytes = _utils.pack(">H", [key]);
     const typeBytes = _utils.pack(">H", [Types["Long"]]);
     const lengthBytes = _utils.pack(">L", [1]);
@@ -147,7 +147,7 @@ export const dump = (originalExifObj: IExif): string => {
     const pointerValue =
       TIFF_HEADER_LENGTH + zerothIfdLength + exifIfdLength + gpsIfdLength;
     const pointerBytes = _utils.pack(">L", [pointerValue]);
-    const key = TagValues.ExifIFD.InteroperabilityTag;
+    const key = TagNumbers.ExifIFD.InteroperabilityTag;
     const keyBytes = _utils.pack(">H", [key]);
     const typeBytes = _utils.pack(">H", [Types["Long"]]);
     const lengthBytes = _utils.pack(">L", [1]);

@@ -1,6 +1,6 @@
-import { Types, ITags, ITagValues } from "./interfaces";
+import { Types, ITags, ITagNumbers } from "./interfaces";
 
-export const TypeNums: { [key: number]: string } = {
+export const TypeNumbers: { [key: number]: string } = {
   1: "Byte",
   2: "Ascii",
   3: "Short",
@@ -1158,7 +1158,7 @@ export const Tags: ITags = {
   }
 };
 
-export const TagValues: ITagValues = {
+export const TagNumbers: ITagNumbers = {
   ImageIFD: {
     ProcessingSoftware: 11,
     NewSubfileType: 254,
