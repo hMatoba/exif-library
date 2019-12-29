@@ -1,16 +1,16 @@
-.. Piexifjs documentation master file, created by
+.. exif-library documentation master file, created by
    sphinx-quickstart on Wed Jan 28 15:52:32 2015.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Piexifjs's documentation!
+Welcome to exif-library's documentation!
 ====================================
 
-.. image:: https://travis-ci.org/hMatoba/piexifjs.svg?branch=master
-   :target: https://travis-ci.org/hMatoba/piexifjs
+.. image:: https://travis-ci.org/hMatoba/exif-library.svg?branch=master
+   :target: https://travis-ci.org/hMatoba/exif-library
 
 Exif manipulations with JavaScript. Writing, reading, and more... For client-side and Node.js.
-https://github.com/hMatoba/piexifjs
+https://github.com/hMatoba/exif-library
 
 .. toctree::
    :maxdepth: 2
@@ -19,7 +19,6 @@ https://github.com/hMatoba/piexifjs
    functions
    constants
    helpers
-   1to2
    sample
    appendices
    developer

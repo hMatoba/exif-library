@@ -1,5 +1,5 @@
 export { Types, IExif, IExifElement } from "./interfaces";
-export { TagNumbers } from "./constants";
+export { TagNumbers, Tags } from "./constants";
 export { GPSHelper } from "./helper";
 
 export { load } from "./load";

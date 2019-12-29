@@ -1,22 +1,10 @@
-==============
-About Piexifjs
-==============
-
-Notice and Warning!
--------------------
-
-We are implementing v2.0. This version would include a few big changes. If you won't ready to use, don't update this library.
-
-- add some arguments type checks 
-- stop to support bower
-- some data types are changed in exif object...?
-
-Some names in this libary will be changed until beta version.
-
-What for?
----------
+==================
+About exif-library
+==================
 
 Exif manipulations in JS. Writing, reading, and more...
+
+This library is new implemation of exif-library.
 
 How to Use
 ----------
@@ -30,22 +18,22 @@ There are only just four functions.
 
 and some utilities.
 
+Environment
+-----------
+
+Both client-side and server-side. exif-library is transpiled as `Universal Module Definition <https://github.com/umdjs/umd>`_.
+
 Dependency
 ----------
 
 No dependencies.
-
-Environment
------------
-
-Both client-side and server-side. Piexifjs is transpiled as `Universal Module Definition <https://github.com/umdjs/umd>`_.
 
 License
 -------
 
 The MIT License (MIT)
 
-Copyright (c) 2015 hMatoba
+Copyright (c) 2019 hMatoba
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = piexifjs
+SPHINXPROJ    = exif-library
 SOURCEDIR     = .
 BUILDDIR      = _build
 

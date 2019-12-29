@@ -2,7 +2,7 @@
 Appendices
 ==========
 
-Exif Data in Piexifjs
+Exif Data in exif-library
 ---------------------
 
 Each exif tag has appropriate type of the value. BYTE, ASCII, SHORT, or... See the document of Exif.

@@ -9,7 +9,7 @@ Functions
 load
 ----
 
-.. js:function:: piexif.load(jpegData)
+.. js:function:: exifLib.load(jpegData)
 
    Get exif data as *object*. jpegData must be a *string* that starts with "\data:image/jpeg;base64,"(DataURL), "\\xff\\xd8", or "Exif".
 
@@ -19,21 +19,21 @@ load
 
 ::
 
-    let exifObj = piexif.load(jpegData);
+    let exifObj = exifLib.load(jpegData);
     for (let ifd in exifObj) {
         if (ifd == "thumbnail") {
             continue;
         }
         console.log("-" + ifd);
         for (let tag in exifObj[ifd]) {
-            console.log("  " + piexif.Tags[ifd][tag]["name"] + ":" + exifObj[ifd][tag]);
+            console.log("  " + exifLib.Tags[ifd][tag]["name"] + ":" + exifObj[ifd][tag]);
         }
     }
 
 dump
 ----
 
-.. js:function:: piexif.dump(exifObj)
+.. js:function:: exifLib.dump(exifObj)
 
    Get exif binary as *string* to insert into JPEG.
 
@@ -46,20 +46,20 @@ dump
     let zeroth = {};
     let exif = {};
     let gps = {};
-    zeroth[piexif.TagNumbers.ImageIFD.Make] = "Make";
-    zeroth[piexif.TagNumbers.ImageIFD.XResolution] = [777, 1];
-    zeroth[piexif.TagNumbers.ImageIFD.YResolution] = [777, 1];
-    zeroth[piexif.TagNumbers.ImageIFD.Software] = "Piexifjs";
-    exif[piexif.TagNumbers.ExifIFD.DateTimeOriginal] = "2010:10:10 10:10:10";
-    exif[piexif.TagNumbers.ExifIFD.LensMake] = "LensMake";
-    exif[piexif.TagNumbers.ExifIFD.Sharpness] = 777;
-    exif[piexif.TagNumbers.ExifIFD.LensSpecification] = [[1, 1], [1, 1], [1, 1], [1, 1]];
-    gps[piexif.TagNumbers.GPSIFD.GPSVersionID] = [7, 7, 7, 7];
-    gps[piexif.TagNumbers.GPSIFD.GPSDateStamp] = "1999:99:99 99:99:99";
+    zeroth[exifLib.TagNumbers.ImageIFD.Make] = "Make";
+    zeroth[exifLib.TagNumbers.ImageIFD.XResolution] = [777, 1];
+    zeroth[exifLib.TagNumbers.ImageIFD.YResolution] = [777, 1];
+    zeroth[exifLib.TagNumbers.ImageIFD.Software] = "exif-library";
+    exif[exifLib.TagNumbers.ExifIFD.DateTimeOriginal] = "2010:10:10 10:10:10";
+    exif[exifLib.TagNumbers.ExifIFD.LensMake] = "LensMake";
+    exif[exifLib.TagNumbers.ExifIFD.Sharpness] = 777;
+    exif[exifLib.TagNumbers.ExifIFD.LensSpecification] = [[1, 1], [1, 1], [1, 1], [1, 1]];
+    gps[exifLib.TagNumbers.GPSIFD.GPSVersionID] = [7, 7, 7, 7];
+    gps[exifLib.TagNumbers.GPSIFD.GPSDateStamp] = "1999:99:99 99:99:99";
     let exifObj = {"0th":zeroth, "Exif":exif, "GPS":gps};
-    const exifbytes = piexif.dump(exifObj);
+    const exifbytes = exifLib.dump(exifObj);
 
-Properties of *piexif.TagNumbers.ImageIFD* help to make 0thIFD and 1stIFD. *piexif.TagNumbers.ExifIFD* is for ExifIFD. *piexif.TagNumbers.GPSIFD* is for GPSIFD. *piexif.InteropIFD* is for InteroperabilityIFD.
+Properties of *exifLib.TagNumbers.ImageIFD* help to make 0thIFD and 1stIFD. *exifLib.TagNumbers.ExifIFD* is for ExifIFD. *exifLib.TagNumbers.GPSIFD* is for GPSIFD. *exifLib.InteropIFD* is for InteroperabilityIFD.
 
 .. note:: ExifTag(34665), GPSTag(34853), and InteroperabilityTag(40965) in 0thIFD automatically are set appropriate value.
 .. note:: JPEGInterchangeFormat(513), and JPEGInterchangeFormatLength(514) in 1stIFD automatically are set appropriate value.
@@ -67,7 +67,7 @@ Properties of *piexif.TagNumbers.ImageIFD* help to make 0thIFD and 1stIFD. *piex
 
 insert
 ------
-.. js:function:: piexif.insert(exifbytes, jpegData)
+.. js:function:: exifLib.insert(exifbytes, jpegData)
 
    Insert exif into JPEG.
 
@@ -78,12 +78,12 @@ insert
 
 ::
 
-    const exifbytes = piexif.dump(exifObj)
-    const newJpeg = piexif.insert(exifbytes, jpegData)
+    const exifbytes = exifLib.dump(exifObj)
+    const newJpeg = exifLib.insert(exifbytes, jpegData)
 
 remove
 ------
-.. js:function:: piexif.remove(jpegData)
+.. js:function:: exifLib.remove(jpegData)
 
    Remove exif from JPEG.
 
@@ -93,4 +93,4 @@ remove
 
 ::
 
-    const newJpeg = piexif.remove(jpegData)
+    const newJpeg = exifLib.remove(jpegData)

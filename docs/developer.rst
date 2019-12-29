@@ -10,13 +10,11 @@ start development.
 
 Source codes are in "./src".
 
-Codes are written in TypeScript. Transpile with below comand.
+Codes are written in TypeScript. Transpile with below command.
 
 ::
 
     npm run build
-
-You can get *piexif.js* under */dist*.
 
 Run tests.
 

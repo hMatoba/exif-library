@@ -8,7 +8,7 @@ Insert Exif into jpeg
 ::
 
     <input type="file" id="files" />
-    <script source="/js/piexif.js" />
+    <script source="/js/exif-library.js" />
     <script>
     function handleFileSelect(evt) {
         var file = evt.target.files[0];
@@ -16,22 +16,22 @@ Insert Exif into jpeg
         var zeroth = {};
         var exif = {};
         var gps = {};
-        zeroth[piexif.TagNumbers.ImageIFD.Make] = "Make";
-        zeroth[piexif.TagNumbers.ImageIFD.XResolution] = [777, 1];
-        zeroth[piexif.TagNumbers.ImageIFD.YResolution] = [777, 1];
-        zeroth[piexif.TagNumbers.ImageIFD.Software] = "Piexifjs";
-        exif[piexif.TagNumbers.ExifIFD.DateTimeOriginal] = "2010:10:10 10:10:10";
-        exif[piexif.TagNumbers.ExifIFD.LensMake] = "LensMake";
-        exif[piexif.TagNumbers.ExifIFD.Sharpness] = 777;
-        exif[piexif.TagNumbers.ExifIFD.LensSpecification] = [[1, 1], [1, 1], [1, 1], [1, 1]];
-        gps[piexif.TagNumbers.GPSIFD.GPSVersionID] = [7, 7, 7, 7];
-        gps[piexif.TagNumbers.GPSIFD.GPSDateStamp] = "1999:99:99 99:99:99";
+        zeroth[exifLib.TagNumbers.ImageIFD.Make] = "Make";
+        zeroth[exifLib.TagNumbers.ImageIFD.XResolution] = [777, 1];
+        zeroth[exifLib.TagNumbers.ImageIFD.YResolution] = [777, 1];
+        zeroth[exifLib.TagNumbers.ImageIFD.Software] = "exif-library";
+        exif[exifLib.TagNumbers.ExifIFD.DateTimeOriginal] = "2010:10:10 10:10:10";
+        exif[exifLib.TagNumbers.ExifIFD.LensMake] = "LensMake";
+        exif[exifLib.TagNumbers.ExifIFD.Sharpness] = 777;
+        exif[exifLib.TagNumbers.ExifIFD.LensSpecification] = [[1, 1], [1, 1], [1, 1], [1, 1]];
+        gps[exifLib.TagNumbers.GPSIFD.GPSVersionID] = [7, 7, 7, 7];
+        gps[exifLib.TagNumbers.GPSIFD.GPSDateStamp] = "1999:99:99 99:99:99";
         var exifObj = {"0th":zeroth, "Exif":exif, "GPS":gps};
-        var exifbytes = piexif.dump(exifObj);
+        var exifbytes = exifLib.dump(exifObj);
 
         var reader = new FileReader();
         reader.onload = function(e) {
-            var inserted = piexif.insert(exifbytes, e.target.result);
+            var inserted = exifLib.insert(exifbytes, e.target.result);
 
             var image = new Image();
             image.src = inserted;
@@ -53,14 +53,14 @@ Read Exif Values
 
     var reader = new FileReader();
     reader.onloadend = function(e) {
-        var exifObj = piexif.load(e.target.result);
+        var exifObj = exifLib.load(e.target.result);
         for (var ifd in exifObj) {
             if (ifd == "thumbnail") {
                 continue;
             }
             console.log("-" + ifd);
             for (var tag in exifObj[ifd]) {
-                console.log("  " + piexif.Tags[ifd][tag]["name"] + ":" + exifObj[ifd][tag]);
+                console.log("  " + exifLib.Tags[ifd][tag]["name"] + ":" + exifObj[ifd][tag]);
             }
         }
     };
@@ -96,10 +96,10 @@ Generates Rotated JPEG
 
             var reader = new FileReader();
             reader.onload = function(e) {
-                var exif = piexif.load(e.target.result);
+                var exif = exifLib.load(e.target.result);
                 var image = new Image();
                 image.onload = function () {
-                    var orientation = exif["0th"][piexif.TagNumbers.ImageIFD.Orientation];
+                    var orientation = exif["0th"][exifLib.TagNumbers.ImageIFD.Orientation];
 
                     var canvas = document.createElement("canvas");
                     canvas.width = image.width;
@@ -177,10 +177,10 @@ GPS Coordinates
 
     var lat = 59.43553989213321;
     var lng = 24.73842144012451;
-    gpsIfd[piexif.TagNumbers.GPSIFD.GPSLatitudeRef] = lat < 0 ? 'S' : 'N';
-    gpsIfd[piexif.TagNumbers.GPSIFD.GPSLatitude] = piexif.GPSHelper.degToDmsRational(lat);
-    gpsIfd[piexif.TagNumbers.GPSIFD.GPSLongitudeRef] = lng < 0 ? 'W' : 'E';
-    gpsIfd[piexif.TagNumbers.GPSIFD.GPSLongitude] = piexif.GPSHelper.degToDmsRational(lng);
+    gpsIfd[exifLib.TagNumbers.GPSIFD.GPSLatitudeRef] = lat < 0 ? 'S' : 'N';
+    gpsIfd[exifLib.TagNumbers.GPSIFD.GPSLatitude] = exifLib.GPSHelper.degToDmsRational(lat);
+    gpsIfd[exifLib.TagNumbers.GPSIFD.GPSLongitudeRef] = lng < 0 ? 'W' : 'E';
+    gpsIfd[exifLib.TagNumbers.GPSIFD.GPSLongitude] = exifLib.GPSHelper.degToDmsRational(lng);
 
 
 Node.js
@@ -188,7 +188,7 @@ Node.js
 
 ::
 
-    var piexif = require("piexifjs");
+    var exifLib = require("exif-library");
     var fs = require("fs");
 
     var filename1 = "in.jpg";
@@ -200,19 +200,19 @@ Node.js
     var zeroth = {};
     var exif = {};
     var gps = {};
-    zeroth[piexif.TagNumbers.ImageIFD.Make] = "Make";
-    zeroth[piexif.TagNumbers.ImageIFD.XResolution] = [777, 1];
-    zeroth[piexif.TagNumbers.ImageIFD.YResolution] = [777, 1];
-    zeroth[piexif.TagNumbers.ImageIFD.Software] = "Piexifjs";
-    exif[piexif.TagNumbers.ExifIFD.DateTimeOriginal] = "2010:10:10 10:10:10";
-    exif[piexif.TagNumbers.ExifIFD.LensMake] = "LensMake";
-    exif[piexif.TagNumbers.ExifIFD.Sharpness] = 777;
-    exif[piexif.TagNumbers.ExifIFD.LensSpecification] = [[1, 1], [1, 1], [1, 1], [1, 1]];
-    gps[piexif.TagNumbers.GPSIFD.GPSVersionID] = [7, 7, 7, 7];
-    gps[piexif.TagNumbers.GPSIFD.GPSDateStamp] = "1999:99:99 99:99:99";
+    zeroth[exifLib.TagNumbers.ImageIFD.Make] = "Make";
+    zeroth[exifLib.TagNumbers.ImageIFD.XResolution] = [777, 1];
+    zeroth[exifLib.TagNumbers.ImageIFD.YResolution] = [777, 1];
+    zeroth[exifLib.TagNumbers.ImageIFD.Software] = "exif-library";
+    exif[exifLib.TagNumbers.ExifIFD.DateTimeOriginal] = "2010:10:10 10:10:10";
+    exif[exifLib.TagNumbers.ExifIFD.LensMake] = "LensMake";
+    exif[exifLib.TagNumbers.ExifIFD.Sharpness] = 777;
+    exif[exifLib.TagNumbers.ExifIFD.LensSpecification] = [[1, 1], [1, 1], [1, 1], [1, 1]];
+    gps[exifLib.TagNumbers.GPSIFD.GPSVersionID] = [7, 7, 7, 7];
+    gps[exifLib.TagNumbers.GPSIFD.GPSDateStamp] = "1999:99:99 99:99:99";
     var exifObj = {"0th":zeroth, "Exif":exif, "GPS":gps};
-    var exifbytes = piexif.dump(exifObj);
+    var exifbytes = exifLib.dump(exifObj);
 
-    var newData = piexif.insert(exifbytes, data);
+    var newData = exifLib.insert(exifbytes, data);
     var newJpeg = Buffer.from(newData, "binary");
     fs.writeFileSync(filename2, newJpeg);
