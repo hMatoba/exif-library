@@ -1,4 +1,5 @@
-import * as _utils from "./utils";
+import * as utils from "./utils";
+import * as struct from "./struct";
 import { IExif, IExifElement } from "./interfaces";
 import { TagNumbers } from "./constants";
 import { ExifReader } from "./exif_reader";
@@ -22,7 +23,7 @@ export const load = (bytes: string): IExif => {
   const IFD_POINTER_BEGIN = 4;
   const IFD_POINTER_LENGTH = 4;
 
-  const zerothIfdPointer = _utils.unpack(
+  const zerothIfdPointer = struct.unpack(
     exifReader.endianMark + "L",
     exifReader.tiftag.slice(
       IFD_POINTER_BEGIN,
@@ -55,7 +56,7 @@ export const load = (bytes: string): IExif => {
     "0th"
   );
   if (firstIfdPointerBytes != "\x00\x00\x00\x00") {
-    const firstIfdPointer = _utils.unpack(
+    const firstIfdPointer = struct.unpack(
       exifReader.endianMark + "L",
       firstIfdPointerBytes
     )[0];
@@ -89,7 +90,7 @@ const getExifBytes = (bytes: string): string => {
       bytes.slice(0, 23) == "data:image/jpeg;base64," ||
       bytes.slice(0, 22) == "data:image/jpg;base64,"
     ) {
-      exifBytes = _utils.atob(bytes.split(",")[1]);
+      exifBytes = utils.atob(bytes.split(",")[1]);
     } else if (bytes.slice(0, 4) == "Exif") {
       exifBytes = bytes.slice(6);
     } else {

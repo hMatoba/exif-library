@@ -1,11 +1,14 @@
-import * as _utils from "./utils";
+import * as utils from "./utils";
+import * as struct from "./struct";
+import * as binary from "./binary";
+import * as segment from "./segment";
 import { Types, IExif, IExifElement } from "./interfaces";
 import { TagNumbers } from "./constants";
 
 export const dump = (originalExifObj: IExif): string => {
   const TIFF_HEADER_LENGTH = 8;
 
-  const exifObj: IExif = _utils.copy(originalExifObj);
+  const exifObj: IExif = utils.copy(originalExifObj);
   const header = "Exif\x00\x00\x4d\x4d\x00\x2a\x00\x00\x00\x08";
   let existExifIfd = false;
   let existGpsIfd = false;
@@ -69,7 +72,7 @@ export const dump = (originalExifObj: IExif): string => {
     firstIfd = exifObj["1st"];
   }
 
-  const zerothIfdSet = _utils.dictToBytes(zerothIfd, "0th", 0);
+  const zerothIfdSet = binary.dictToBytes(zerothIfd, "0th", 0);
   const zerothIfdLength =
     zerothIfdSet[0].length +
     Number(existExifIfd) * 12 +
@@ -90,14 +93,14 @@ export const dump = (originalExifObj: IExif): string => {
     firstIfdBytes = "",
     thumbnail;
   if (existExifIfd) {
-    exifIfdSet = _utils.dictToBytes(exifIfd, "Exif", zerothIfdLength);
+    exifIfdSet = binary.dictToBytes(exifIfd, "Exif", zerothIfdLength);
     exifIfdLength =
       exifIfdSet[0].length +
       Number(existInteropIfd) * 12 +
       exifIfdSet[1].length;
   }
   if (existGpsIfd) {
-    gpsIfdSet = _utils.dictToBytes(
+    gpsIfdSet = binary.dictToBytes(
       gpsIfd,
       "GPS",
       zerothIfdLength + exifIfdLength
@@ -107,15 +110,15 @@ export const dump = (originalExifObj: IExif): string => {
   }
   if (existInteropIfd) {
     const offset = zerothIfdLength + exifIfdLength + gpsIfdLength;
-    interopIfdSet = _utils.dictToBytes(interopIfd, "Interop", offset);
+    interopIfdSet = binary.dictToBytes(interopIfd, "Interop", offset);
     interopIfdBytes = interopIfdSet.join("");
     interopIfdLength = interopIfdBytes.length;
   }
   if (existFirstIfd) {
     const offset =
       zerothIfdLength + exifIfdLength + gpsIfdLength + interopIfdLength;
-    firstIfdSet = _utils.dictToBytes(firstIfd, "1st", offset);
-    thumbnail = _utils.getThumbnail(exifObj["thumbnail"]);
+    firstIfdSet = binary.dictToBytes(firstIfd, "1st", offset);
+    thumbnail = segment.getThumbnail(exifObj["thumbnail"]);
     if (thumbnail.length > 64000) {
       throw new Error("Given thumbnail is too large. max 64kB");
     }
@@ -127,30 +130,30 @@ export const dump = (originalExifObj: IExif): string => {
     firstIfdPointer = "\x00\x00\x00\x00";
   if (existExifIfd) {
     const pointerValue = TIFF_HEADER_LENGTH + zerothIfdLength;
-    const pointerBytes = _utils.pack(">L", [pointerValue]);
+    const pointerBytes = struct.pack(">L", [pointerValue]);
     const key = TagNumbers.ImageIFD.ExifTag;
-    const keyBytes = _utils.pack(">H", [key]);
-    const typeBytes = _utils.pack(">H", [Types["Long"]]);
-    const lengthBytes = _utils.pack(">L", [1]);
+    const keyBytes = struct.pack(">H", [key]);
+    const typeBytes = struct.pack(">H", [Types["Long"]]);
+    const lengthBytes = struct.pack(">L", [1]);
     exifPointer = keyBytes + typeBytes + lengthBytes + pointerBytes;
   }
   if (existGpsIfd) {
     const pointerValue = TIFF_HEADER_LENGTH + zerothIfdLength + exifIfdLength;
-    const pointerBytes = _utils.pack(">L", [pointerValue]);
+    const pointerBytes = struct.pack(">L", [pointerValue]);
     const key = TagNumbers.ImageIFD.GPSTag;
-    const keyBytes = _utils.pack(">H", [key]);
-    const typeBytes = _utils.pack(">H", [Types["Long"]]);
-    const lengthBytes = _utils.pack(">L", [1]);
+    const keyBytes = struct.pack(">H", [key]);
+    const typeBytes = struct.pack(">H", [Types["Long"]]);
+    const lengthBytes = struct.pack(">L", [1]);
     gpsPointer = keyBytes + typeBytes + lengthBytes + pointerBytes;
   }
   if (existInteropIfd) {
     const pointerValue =
       TIFF_HEADER_LENGTH + zerothIfdLength + exifIfdLength + gpsIfdLength;
-    const pointerBytes = _utils.pack(">L", [pointerValue]);
+    const pointerBytes = struct.pack(">L", [pointerValue]);
     const key = TagNumbers.ExifIFD.InteroperabilityTag;
-    const keyBytes = _utils.pack(">H", [key]);
-    const typeBytes = _utils.pack(">H", [Types["Long"]]);
-    const lengthBytes = _utils.pack(">L", [1]);
+    const keyBytes = struct.pack(">H", [key]);
+    const typeBytes = struct.pack(">H", [Types["Long"]]);
+    const lengthBytes = struct.pack(">L", [1]);
     interopPointer = keyBytes + typeBytes + lengthBytes + pointerBytes;
   }
   if (existFirstIfd) {
@@ -160,15 +163,15 @@ export const dump = (originalExifObj: IExif): string => {
       exifIfdLength +
       gpsIfdLength +
       interopIfdLength;
-    firstIfdPointer = _utils.pack(">L", [pointerValue]);
+    firstIfdPointer = struct.pack(">L", [pointerValue]);
     const thumbnailPointer =
       pointerValue + firstIfdSet[0].length + 24 + 4 + firstIfdSet[1].length;
     const thumbnailPointerBytes =
       "\x02\x01\x00\x04\x00\x00\x00\x01" +
-      _utils.pack(">L", [thumbnailPointer]);
+      struct.pack(">L", [thumbnailPointer]);
     const thumbnailLengthBytes =
       "\x02\x02\x00\x04\x00\x00\x00\x01" +
-      _utils.pack(">L", [thumbnail.length]);
+      struct.pack(">L", [thumbnail.length]);
     firstIfdBytes =
       firstIfdSet[0] +
       thumbnailPointerBytes +
