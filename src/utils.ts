@@ -31,8 +31,8 @@ export const btoa: Function = isBrowser
       return encoded;
     };
 
-export const copy = <T extends object>(obj: T): T => {
+export const copyObject = (obj: object): object => {
   const copied = {};
   Object.assign(copied, obj);
-  return obj;
+  return copied;
 };
