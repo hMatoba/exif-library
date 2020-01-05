@@ -8,7 +8,7 @@ import { TagNumbers } from "./constants";
 export const dump = (originalExifObj: IExif): string => {
   const TIFF_HEADER_LENGTH = 8;
 
-  const exifObj: IExif = utils.copy(originalExifObj);
+  const exifObj: IExif = utils.copyObject(originalExifObj);
   const header = "Exif\x00\x00\x4d\x4d\x00\x2a\x00\x00\x00\x08";
   let existExifIfd = false;
   let existGpsIfd = false;

@@ -222,7 +222,7 @@ const toSRational = (
     Array.isArray(rawValue[0]) &&
     typeof (rawValue as number[][])[0][0] === "number"
   ) {
-    // pass
+    value = rawValue as number[][];
   } else {
     let t = Array.isArray(rawValue) ? "Array" : typeof rawValue;
     t = t == "Array" ? `Array<${typeof rawValue[0]}>` : t;
