@@ -131,7 +131,6 @@ test('round trip "load" and "dump" -- 1', () => {
 });
 
 test('round trip "dump" and "load" -- 1', () => {
-  console.log(EXIF_OBJ.thumbnail.length)
   let exifObj = {};
   Object.assign(exifObj, EXIF_OBJ);
   const exifBytes = exifLib.dump(EXIF_OBJ);
