@@ -14,10 +14,21 @@ afterAll(async () => {
   await page.close()
 });
 
-it('test to check running puppeteer', async () => {
+it('running puppeteer', async () => {
   await page.addScriptTag({
     content: "const x = 1 + 1;"
   });
+});
+
+it('exif-library is loaded', async () => {
+  await page.addScriptTag({
+    path: require.resolve(exifLibPath)
+  });
+
+  const browserOutput = await page.evaluate(() => {
+    return exifLib;
+  });
+  expect(browserOutput).toBeTruthy();
 });
 
 it('should be same output from load on node and browser ', async () => {
