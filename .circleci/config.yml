@@ -2,7 +2,7 @@ version: 2.0
 jobs:
   build:
     docker:
-      - image: matoba/np:12-alpine
+      - image: matoba/np:10-alpine
     working_directory: ~/repo
     steps:
       - checkout
