@@ -9,6 +9,7 @@ jobs:
     steps:
     - name: Checkout
       run: |
+        cd /home/pptruser
         pwd
         git clone https://github.com/hMatoba/exif-library.git
         cd exif-library
