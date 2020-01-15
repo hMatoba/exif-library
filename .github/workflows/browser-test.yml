@@ -7,7 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     container: matoba/np:12-alpine
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      run: |
+        git clone https://github.com/hMatoba/exif-library.git
+        cd exif-library
+        git checkout feature/github-actions
       
     - name: Build
       run: |
