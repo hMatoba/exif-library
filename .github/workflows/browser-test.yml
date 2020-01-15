@@ -7,12 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     container: matoba/np:12-alpine
     steps:
+    - name: _
+      run: cd /home/pptruser
+      
     - uses: actions/checkout@v1
+      
     - name: Build
       run: |
-        whoami
-        ls -al /
-        ls -al /home
         npm ci
         npm run build
     - name: Test with Browser
