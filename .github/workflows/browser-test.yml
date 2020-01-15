@@ -9,6 +9,7 @@ jobs:
     steps:
     - name: Checkout
       run: |
+        pwd
         git clone https://github.com/hMatoba/exif-library.git
         cd exif-library
         git checkout feature/github-actions
