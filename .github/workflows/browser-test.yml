@@ -8,3 +8,9 @@ jobs:
     container: matoba/np:12-alpine
     steps:
     - uses: actions/checkout@v1
+    - name: Build
+      run: |
+        npm ci
+        npm run build
+    - name: Test with Browser
+      run: npm run browser-test
