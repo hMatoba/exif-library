@@ -3,10 +3,8 @@ name: CI
 on: [push]
 
 jobs:
-  build:
-
+  container:
     runs-on: ubuntu-latest
-
+    container: matoba/np:12-alpine
     steps:
     - uses: actions/checkout@v1
-    - uses: hMatoba/github-actions-node-puppeteer@v1.0.0
