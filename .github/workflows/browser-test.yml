@@ -11,6 +11,8 @@ jobs:
     - name: Build
       run: |
         whoami
+        ls -al /
+        ls -al /home
         npm ci
         npm run build
     - name: Test with Browser
