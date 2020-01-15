@@ -8,12 +8,16 @@ jobs:
     container: matoba/np:12-alpine
     steps:
     - name: _
-      run: cd /home/pptruser
+      run: |
+        pwd
+        cd /home/pptruser
       
     - uses: actions/checkout@v1
       
     - name: Build
       run: |
+        pwd
+        cd /home/pptruser
         npm ci
         npm run build
     - name: Test with Browser
