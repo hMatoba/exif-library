@@ -17,9 +17,11 @@ jobs:
       
     - name: Build
       run: |
-        cd /home/pptruser
+        cd /home/pptruser/exif-library
         pwd
         npm ci
         npm run build
     - name: Test with Browser
-      run: npm run browser-test
+      run: |
+        cd /home/pptruser/exif-library
+        npm run browser-test
