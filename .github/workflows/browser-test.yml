@@ -17,6 +17,7 @@ jobs:
       
     - name: Build
       run: |
+        cd /home/pptruser
         pwd
         npm ci
         npm run build
