@@ -10,7 +10,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build
       run: |
-        sudo chown -R 100:65533 "/github/home/.npm"
+        whoami
         npm ci
         npm run build
     - name: Test with Browser
