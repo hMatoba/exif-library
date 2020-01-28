@@ -28,42 +28,36 @@ export const dump = (originalExifObj: IExif): string => {
   }
 
   if (
-    ("Exif" in exifObj && Object.keys(exifObj["Exif"]).length) ||
-    ("Interop" in exifObj && Object.keys(exifObj["Interop"]).length)
+    Object.keys(exifObj?.Exif ?? {}).length ||
+    Object.keys(exifObj?.Interop ?? {}).length
   ) {
     zerothIfd[TagNumbers.ImageIFD.ExifTag] = 1;
     existExifIfd = true;
     exifIfd = exifObj["Exif"];
-    if ("Interop" in exifObj && Object.keys(exifObj["Interop"]).length) {
+    if (Object.keys(exifObj?.Interop ?? {}).length) {
       exifIfd[TagNumbers.ExifIFD.InteroperabilityTag] = 1;
       existInteropIfd = true;
       interopIfd = exifObj["Interop"];
     } else if (
-      Object.keys(exifIfd).indexOf(
-        TagNumbers.ExifIFD.InteroperabilityTag.toString()
-      ) > -1
+      exifIfd.hasOwnProperty(TagNumbers.ExifIFD.InteroperabilityTag.toString())
     ) {
       delete exifIfd[TagNumbers.ExifIFD.InteroperabilityTag];
     }
-  } else if (
-    Object.keys(zerothIfd).indexOf(TagNumbers.ImageIFD.ExifTag.toString()) > -1
-  ) {
+  } else if (zerothIfd.hasOwnProperty(TagNumbers.ImageIFD.ExifTag.toString())) {
     delete zerothIfd[TagNumbers.ImageIFD.ExifTag];
   }
 
-  if ("GPS" in exifObj && Object.keys(exifObj["GPS"]).length) {
+  if (Object.keys(exifObj?.GPS ?? {}).length) {
     zerothIfd[TagNumbers.ImageIFD.GPSTag] = 1;
     existGpsIfd = true;
     gpsIfd = exifObj["GPS"];
-  } else if (
-    Object.keys(zerothIfd).indexOf(TagNumbers.ImageIFD.GPSTag.toString()) > -1
-  ) {
+  } else if (zerothIfd.hasOwnProperty(TagNumbers.ImageIFD.GPSTag.toString())) {
     delete zerothIfd[TagNumbers.ImageIFD.GPSTag];
   }
 
   if (
-    "1st" in exifObj &&
-    "thumbnail" in exifObj &&
+    exifObj.hasOwnProperty("1st") &&
+    exifObj.hasOwnProperty("thumbnail") &&
     exifObj["thumbnail"] != null
   ) {
     existFirstIfd = true;
