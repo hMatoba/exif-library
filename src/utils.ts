@@ -20,7 +20,8 @@ export const atob: Function = isBrowser
   ? window.atob
   : (input: string): Buffer => {
       const decoded = Buffer.from(input, "base64");
-      return decoded;
+      const str = String.fromCharCode.apply(null, decoded);
+      return str;
     };
 
 export const btoa: Function = isBrowser
