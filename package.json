@@ -1,6 +1,6 @@
 {
   "name": "exif-library",
-  "version": "2.0.0-alpha.0",
+  "version": "3.0.0-alpha.0",
   "description": "Read and write exif.",
   "main": "dist/exif-library.js",
   "types": "dist/index.d.ts",
@@ -61,7 +61,6 @@
     "rollup": "^1.27.14",
     "rollup-plugin-eslint": "^7.0.0",
     "rollup-plugin-typescript2": "^0.25.3",
-    "typescript": "^3.7.4"
-  },
-  "dependencies": {}
+    "typescript": "^5.1.6"
+  }
 }
