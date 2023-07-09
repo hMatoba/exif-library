@@ -4,7 +4,7 @@ export const pack = (mark: string, array: Array<number>): string => {
   }
   if (mark.length - 1 != array.length) {
     throw new Error(
-      `'pack' error. ${mark.length - 1} marks, ${array.length} elements.`
+      `'pack' error. ${mark.length - 1} marks, ${array.length} elements.`,
     );
   }
 
@@ -42,10 +42,7 @@ export const pack = (mark: string, array: Array<number>): string => {
           String.fromCharCode(Math.floor((val % 0x10000) / 0x100)) +
           String.fromCharCode(val % 0x100);
         if (littleEndian) {
-          valBinary = valBinary
-            .split("")
-            .reverse()
-            .join("");
+          valBinary = valBinary.split("").reverse().join("");
         }
       }
     } else if (c.toLowerCase() == "l") {
@@ -62,10 +59,7 @@ export const pack = (mark: string, array: Array<number>): string => {
           String.fromCharCode(Math.floor((val % 0x10000) / 0x100)) +
           String.fromCharCode(val % 0x100);
         if (littleEndian) {
-          valBinary = valBinary
-            .split("")
-            .reverse()
-            .join("");
+          valBinary = valBinary.split("").reverse().join("");
         }
       }
     } else {
@@ -101,7 +95,7 @@ export const unpack = (mark: string, str: string): number[] => {
       "'unpack' error. Mismatch between symbol and string length. " +
         l +
         ":" +
-        str.length
+        str.length,
     );
   }
 
@@ -133,20 +127,14 @@ export const unpack = (mark: string, str: string): number[] => {
       length = 2;
       sliced = str.slice(strPointer, strPointer + length);
       if (littleEndian) {
-        sliced = sliced
-          .split("")
-          .reverse()
-          .join("");
+        sliced = sliced.split("").reverse().join("");
       }
       val = sliced.charCodeAt(0) * 0x100 + sliced.charCodeAt(1);
     } else if (c.toLowerCase() == "l") {
       length = 4;
       sliced = str.slice(strPointer, strPointer + length);
       if (littleEndian) {
-        sliced = sliced
-          .split("")
-          .reverse()
-          .join("");
+        sliced = sliced.split("").reverse().join("");
       }
       val =
         sliced.charCodeAt(0) * 0x1000000 +

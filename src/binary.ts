@@ -32,7 +32,7 @@ const toByte = (rawValue: number | number[], offset: number): ITagBinary => {
     throw new exceptions.ValueConvertError(
       `Value must be "number" or "Array<number>".\n` +
         `Value: ${rawValue}\n` +
-        `Type: ${t}`
+        `Type: ${t}`,
     );
   }
 
@@ -40,7 +40,7 @@ const toByte = (rawValue: number | number[], offset: number): ITagBinary => {
   const tagBinary: ITagBinary = {
     value: "",
     lengthBinary: "",
-    fourBytesOver: ""
+    fourBytesOver: "",
   };
   if (length <= 4) {
     tagBinary.value =
@@ -57,7 +57,7 @@ const toAscii = (rawValue: string, offset: number): ITagBinary => {
   if (typeof rawValue !== "string") {
     const t = Array.isArray(rawValue) ? "Array" : typeof rawValue;
     throw new exceptions.ValueConvertError(
-      `Value must be "string". Got "${t}".`
+      `Value must be "string". Got "${t}".`,
     );
   }
 
@@ -66,7 +66,7 @@ const toAscii = (rawValue: string, offset: number): ITagBinary => {
   const tagBinary: ITagBinary = {
     value: "",
     lengthBinary: "",
-    fourBytesOver: ""
+    fourBytesOver: "",
   };
   if (length > 4) {
     tagBinary.value = struct.pack(">L", [offset]);
@@ -88,7 +88,7 @@ const toShort = (rawValue: number | number[], offset: number): ITagBinary => {
     throw new exceptions.ValueConvertError(
       `Value must be "number" or "Array<number>".\n` +
         `Value: ${rawValue}\n` +
-        `Type: ${t}`
+        `Type: ${t}`,
     );
   }
 
@@ -96,7 +96,7 @@ const toShort = (rawValue: number | number[], offset: number): ITagBinary => {
   const tagBinary: ITagBinary = {
     value: "",
     lengthBinary: "",
-    fourBytesOver: ""
+    fourBytesOver: "",
   };
   if (length <= 2) {
     tagBinary.value =
@@ -119,7 +119,7 @@ const toLong = (rawValue: number | number[], offset: number): ITagBinary => {
     throw new exceptions.ValueConvertError(
       `Value must be "number" or "Array<number>".\n` +
         `Value: ${rawValue}\n` +
-        `Type: ${t}`
+        `Type: ${t}`,
     );
   }
 
@@ -127,7 +127,7 @@ const toLong = (rawValue: number | number[], offset: number): ITagBinary => {
   const tagBinary: ITagBinary = {
     value: "",
     lengthBinary: "",
-    fourBytesOver: ""
+    fourBytesOver: "",
   };
   if (length <= 1) {
     tagBinary.value = packLong(rawValue);
@@ -141,7 +141,7 @@ const toLong = (rawValue: number | number[], offset: number): ITagBinary => {
 
 const toRational = (
   rawValue: number[] | number[][],
-  offset: number
+  offset: number,
 ): ITagBinary => {
   let value: number[][];
   if (
@@ -160,14 +160,14 @@ const toRational = (
     let t = Array.isArray(rawValue) ? "Array" : typeof rawValue;
     t = t == "Array" ? `Array<${typeof rawValue[0]}>` : t;
     throw new exceptions.ValueConvertError(
-      `Value must be "Array<number>" or "Array<Array<number>>". Got "${t}".`
+      `Value must be "Array<number>" or "Array<Array<number>>". Got "${t}".`,
     );
   }
 
   const tagBinary: ITagBinary = {
     value: "",
     lengthBinary: "",
-    fourBytesOver: ""
+    fourBytesOver: "",
   };
   const length = value.length;
   let newValue = "";
@@ -186,7 +186,7 @@ const toUndefined = (rawValue: string, offset: number): ITagBinary => {
   if (typeof rawValue !== "string") {
     const t = Array.isArray(rawValue) ? "Array" : typeof rawValue;
     throw new exceptions.ValueConvertError(
-      `Value must be "string". Got "${t}".`
+      `Value must be "string". Got "${t}".`,
     );
   }
 
@@ -194,7 +194,7 @@ const toUndefined = (rawValue: string, offset: number): ITagBinary => {
   const tagBinary: ITagBinary = {
     value: "",
     lengthBinary: "",
-    fourBytesOver: ""
+    fourBytesOver: "",
   };
   if (length > 4) {
     tagBinary.value = struct.pack(">L", [offset]);
@@ -208,7 +208,7 @@ const toUndefined = (rawValue: string, offset: number): ITagBinary => {
 
 const toSRational = (
   rawValue: number[] | number[][],
-  offset: number
+  offset: number,
 ): ITagBinary => {
   let value: number[][];
   if (
@@ -227,14 +227,14 @@ const toSRational = (
     let t = Array.isArray(rawValue) ? "Array" : typeof rawValue;
     t = t == "Array" ? `Array<${typeof rawValue[0]}>` : t;
     throw new exceptions.ValueConvertError(
-      `Value must be "Array<number>" or "Array<Array<number>>". Got "${t}".`
+      `Value must be "Array<number>" or "Array<Array<number>>". Got "${t}".`,
     );
   }
 
   const tagBinary: ITagBinary = {
     value: "",
     lengthBinary: "",
-    fourBytesOver: ""
+    fourBytesOver: "",
   };
   const length = value.length;
   let newValue = "";
@@ -252,7 +252,7 @@ const toSRational = (
 const valueToBytes = (
   rawValue: string | number | number[] | number[][],
   valueType: number,
-  offset: number
+  offset: number,
 ): ITagBinary => {
   let tagBinary;
   if (valueType == Types.Byte) {
@@ -281,7 +281,7 @@ const valueToBytes = (
 export const dictToBytes = (
   ifdObj: IExifElement,
   ifdName: TagsFieldNames,
-  ifdOffsetCount: number
+  ifdOffsetCount: number,
 ): string[] => {
   const TIFF_HEADER_LENGTH = 8;
   const tagCount = Object.keys(ifdObj).length;

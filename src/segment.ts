@@ -49,12 +49,12 @@ export const getExifSeg = (segments: Array<string>): string => {
 
 export const mergeSegments = (
   segments: Array<string>,
-  exif: string
+  exif: string,
 ): string => {
   let hasExifSegment = false;
   const additionalAPP1ExifSegments: Array<number> = [];
 
-  segments.forEach(function(segment, i) {
+  segments.forEach(function (segment, i) {
     // Replace first occurence of APP1:Exif segment
     if (
       segment.slice(0, 2) == "\xff\xe1" &&
@@ -70,7 +70,7 @@ export const mergeSegments = (
   });
 
   // Remove additional occurences of APP1:Exif segment
-  additionalAPP1ExifSegments.forEach(function(segmentIndex) {
+  additionalAPP1ExifSegments.forEach(function (segmentIndex) {
     segments.splice(segmentIndex, 1);
   });
 
