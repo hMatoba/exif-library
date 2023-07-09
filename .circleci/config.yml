@@ -2,20 +2,20 @@ version: 2.0
 jobs:
   build:
     docker:
-      - image: matoba/np:20-alpine
+      - image: node:20-bookworm
     working_directory: ~/repo
     steps:
       - checkout
       - run:
           name: check 
           command: |
-            npm install
+            npm ci
       - run:
           name: build
           command: npm run build
       - run:
           name: test
-          command: npm run browser-test
+          command: npm run test
 
 workflows:
   version: 2
