@@ -16,14 +16,14 @@ const isBrowser = new Function(
   "try {return this===window;}catch(e){ return false;}"
 )();
 
-export const atob: Function = isBrowser
+export const atob = isBrowser
   ? window.atob
   : (input: string): Buffer => {
       const decoded = Buffer.from(input, "base64");
       return decoded;
     };
 
-export const btoa: Function = isBrowser
+export const btoa = isBrowser
   ? window.btoa
   : (input: string): string => {
       const buf = Buffer.from(input);
