@@ -15,7 +15,7 @@ export const remove = (imageBytes: string): string => {
   }
 
   const segments = segment.splitIntoSegments(imageBytes);
-  const newSegments = segments.filter(function(segment: string) {
+  const newSegments = segments.filter(function (segment: string) {
     return !(
       segment.slice(0, 2) == "\xff\xe1" &&
       segment.slice(4, 10) == "Exif\x00\x00"

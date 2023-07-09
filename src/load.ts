@@ -27,8 +27,8 @@ export const load = (bytes: string): IExif => {
     exifReader.endianMark + "L",
     exifReader.tiftag.slice(
       IFD_POINTER_BEGIN,
-      IFD_POINTER_BEGIN + IFD_POINTER_LENGTH
-    )
+      IFD_POINTER_BEGIN + IFD_POINTER_LENGTH,
+    ),
   )[0];
   zerothIfd = exifReader.getIfd(zerothIfdPointer, "0th");
   exifObj["0th"] = zerothIfd;
@@ -53,12 +53,12 @@ export const load = (bytes: string): IExif => {
 
   const firstIfdPointerBytes = exifReader.getFirstIfdPointer(
     zerothIfdPointer,
-    "0th"
+    "0th",
   );
   if (firstIfdPointerBytes != "\x00\x00\x00\x00") {
     const firstIfdPointer = struct.unpack(
       exifReader.endianMark + "L",
-      firstIfdPointerBytes
+      firstIfdPointerBytes,
     )[0];
     firstIfd = exifReader.getIfd(firstIfdPointer, "1st");
     exifObj["1st"] = firstIfd;
@@ -72,7 +72,7 @@ export const load = (bytes: string): IExif => {
         (firstIfd[TagNumbers.ImageIFD.JPEGInterchangeFormatLength] as number);
       thumbnail = exifReader.tiftag.slice(
         firstIfd[TagNumbers.ImageIFD.JPEGInterchangeFormat] as number,
-        thumbnailEnd
+        thumbnailEnd,
       );
       exifObj["thumbnail"] = thumbnail;
     }

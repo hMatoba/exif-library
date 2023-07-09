@@ -13,7 +13,7 @@ export const repeatString = (ch: string, num: number): string => {
 };
 
 const isBrowser = new Function(
-  "try {return this===window;}catch(e){ return false;}"
+  "try {return this===window;}catch(e){ return false;}",
 )();
 
 export const atob = isBrowser

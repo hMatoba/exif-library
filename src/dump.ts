@@ -40,7 +40,7 @@ export const dump = (originalExifObj: IExif): string => {
       interopIfd = exifObj["Interop"];
     } else if (
       Object.keys(exifIfd).indexOf(
-        TagNumbers.ExifIFD.InteroperabilityTag.toString()
+        TagNumbers.ExifIFD.InteroperabilityTag.toString(),
       ) > -1
     ) {
       delete exifIfd[TagNumbers.ExifIFD.InteroperabilityTag];
@@ -103,7 +103,7 @@ export const dump = (originalExifObj: IExif): string => {
     gpsIfdSet = binary.dictToBytes(
       gpsIfd,
       "GPS",
-      zerothIfdLength + exifIfdLength
+      zerothIfdLength + exifIfdLength,
     );
     gpsIfdBytes = gpsIfdSet.join("");
     gpsIfdLength = gpsIfdBytes.length;

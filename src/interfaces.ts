@@ -46,7 +46,7 @@ export const Types: ITypes = {
   Rational: 5,
   Undefined: 7,
   SLong: 9,
-  SRational: 10
+  SRational: 10,
 };
 
 export interface ITagsSubElement {
