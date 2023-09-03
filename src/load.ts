@@ -1,24 +1,24 @@
 import * as utils from "./utils";
 import * as struct from "./struct";
-import { IExif, IExifElement } from "./interfaces";
+import { Exif, ExifElement } from "./types";
 import { TagNumbers } from "./constants";
 import { ExifReader } from "./exif_reader";
 
-export const load = (bytes: string): IExif => {
+export const load = (bytes: string): Exif => {
   const exifBytes = getExifBytes(bytes);
 
-  const exifObj: IExif = {};
+  const exifObj: Exif = {};
   const exifReader = new ExifReader(exifBytes);
   if (exifReader.tiftag === null) {
     return exifObj;
   }
   exifReader.setEndianMark();
 
-  let zerothIfd: IExifElement = null;
-  let firstIfd: IExifElement = null;
-  let exifIfd: IExifElement = null;
-  let interopIfd: IExifElement = null;
-  let gpsIfd: IExifElement = null;
+  let zerothIfd: ExifElement = null;
+  let firstIfd: ExifElement = null;
+  let exifIfd: ExifElement = null;
+  let interopIfd: ExifElement = null;
+  let gpsIfd: ExifElement = null;
   let thumbnail: string = null;
   const IFD_POINTER_BEGIN = 4;
   const IFD_POINTER_LENGTH = 4;

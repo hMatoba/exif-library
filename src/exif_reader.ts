@@ -1,7 +1,7 @@
 import * as utils from "./utils";
 import * as struct from "./struct";
 import * as segment from "./segment";
-import { TagsFieldNames, IExifElement } from "./interfaces";
+import { TagsFieldNames, ExifElement } from "./types";
 import { Tags } from "./constants";
 
 export class ExifReader {
@@ -30,7 +30,7 @@ export class ExifReader {
     }
   }
 
-  getIfd = (pointer: number, ifdName: TagsFieldNames): IExifElement => {
+  getIfd = (pointer: number, ifdName: TagsFieldNames): ExifElement => {
     const tagCount = struct.unpack(
       this.endianMark + "H",
       this.tiftag.slice(pointer, pointer + 2),
@@ -38,7 +38,7 @@ export class ExifReader {
     if (tagCount == 0) {
       return null;
     }
-    const ifdObj: IExifElement = {};
+    const ifdObj: ExifElement = {};
     const offset = pointer + 2;
     let t: TagsFieldNames;
     if (["0th", "1st"].indexOf(ifdName) > -1) {

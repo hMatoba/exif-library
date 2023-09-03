@@ -1,6 +1,5 @@
-export { Types } from "./interfaces";
-// eslint-disable-next-line prettier/prettier
-export type { IExif, IExifElement } from "./interfaces";
+export { Types } from "./types";
+export type { Exif, ExifElement } from "./types";
 export { TagNumbers, Tags } from "./constants";
 export { GPSHelper } from "./helper";
 
