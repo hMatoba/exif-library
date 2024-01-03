@@ -6,20 +6,20 @@ export type ExifFieldNames =
   | "1st"
   | "thumbnail";
 
-export interface IExif {
-  "0th"?: IExifElement;
-  Exif?: IExifElement;
-  Interop?: IExifElement;
-  GPS?: IExifElement;
-  "1st"?: IExifElement;
+export type Exif = {
+  "0th"?: ExifElement;
+  Exif?: ExifElement;
+  Interop?: ExifElement;
+  GPS?: ExifElement;
+  "1st"?: ExifElement;
   thumbnail?: string;
-}
+};
 
-export interface IExifElement {
+export type ExifElement = {
   [key: number]: string | number | number[] | number[][];
-}
+};
 
-export interface ITypes {
+export type ExifDataTypes = {
   Byte: number;
   Ascii: number;
   Short: number;
@@ -28,7 +28,7 @@ export interface ITypes {
   Undefined: number;
   SLong: number;
   SRational: number;
-}
+};
 
 export type TagsFieldNames =
   | "Image"
@@ -38,7 +38,7 @@ export type TagsFieldNames =
   | "GPS"
   | "1st";
 
-export const Types: ITypes = {
+export const Types: ExifDataTypes = {
   Byte: 1,
   Ascii: 2,
   Short: 3,
@@ -49,26 +49,25 @@ export const Types: ITypes = {
   SRational: 10,
 };
 
-export interface ITagsSubElement {
+export type TagsSubElement = {
   name: string;
   type: number;
-  //type: ITypes,
-}
+};
 
-export interface ITagsElement {
-  [key: number]: ITagsSubElement;
-}
+export type TagsElement = {
+  [key: number]: TagsSubElement;
+};
 
-export interface ITags {
-  Image: ITagsElement;
-  "0th": ITagsElement;
-  Exif: ITagsElement;
-  Interop: ITagsElement;
-  GPS: ITagsElement;
-  "1st": ITagsElement;
-}
+export type ExifInterface = {
+  Image: TagsElement;
+  "0th": TagsElement;
+  Exif: TagsElement;
+  Interop: TagsElement;
+  GPS: TagsElement;
+  "1st": TagsElement;
+};
 
-export interface ITagNumbers {
+export type ExifTagCode = {
   ImageIFD: {
     ProcessingSoftware: number;
     NewSubfileType: number;
@@ -365,4 +364,4 @@ export interface ITagNumbers {
   InteropIFD: {
     InteroperabilityIndex: number;
   };
-}
+};

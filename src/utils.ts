@@ -18,10 +18,8 @@ const isBrowser = new Function(
 
 export const atob = isBrowser
   ? window.atob
-  : (input: string): Buffer => {
-      const decoded = Buffer.from(input, "base64");
-      const str = String.fromCharCode.apply(null, decoded);
-      return str;
+  : (input: string): string => {
+      return Buffer.from(input, "base64").toString();
     };
 
 export const btoa = isBrowser

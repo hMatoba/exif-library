@@ -1,4 +1,4 @@
-import { Types, ITags, ITagNumbers } from "./interfaces";
+import { Types, ExifInterface, ExifTagCode } from "./types";
 
 export const TypeNumbers: { [key: number]: string } = {
   1: "Byte",
@@ -734,7 +734,7 @@ const ImageTagElement = {
   },
 };
 
-export const Tags: ITags = {
+export const Tags: ExifInterface = {
   Image: ImageTagElement,
   "0th": ImageTagElement,
   "1st": ImageTagElement,
@@ -1158,7 +1158,7 @@ export const Tags: ITags = {
   },
 };
 
-export const TagNumbers: ITagNumbers = {
+export const TagNumbers: ExifTagCode = {
   ImageIFD: {
     ProcessingSoftware: 11,
     NewSubfileType: 254,

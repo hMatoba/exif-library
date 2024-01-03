@@ -2,24 +2,24 @@ import * as utils from "./utils";
 import * as struct from "./struct";
 import * as binary from "./binary";
 import * as segment from "./segment";
-import { Types, IExif, IExifElement } from "./interfaces";
+import { Types, Exif, ExifElement } from "./types";
 import { TagNumbers } from "./constants";
 
-export const dump = (originalExifObj: IExif): string => {
+export const dump = (originalExifObj: Exif): string => {
   const TIFF_HEADER_LENGTH = 8;
 
-  const exifObj: IExif = utils.copyObject(originalExifObj);
+  const exifObj: Exif = utils.copyObject(originalExifObj);
   const header = "Exif\x00\x00\x4d\x4d\x00\x2a\x00\x00\x00\x08";
   let existExifIfd = false;
   let existGpsIfd = false;
   let existInteropIfd = false;
   let existFirstIfd = false;
 
-  let zerothIfd: IExifElement,
-    exifIfd: IExifElement,
-    interopIfd: IExifElement,
-    gpsIfd: IExifElement,
-    firstIfd: IExifElement;
+  let zerothIfd: ExifElement,
+    exifIfd: ExifElement,
+    interopIfd: ExifElement,
+    gpsIfd: ExifElement,
+    firstIfd: ExifElement;
 
   if ("0th" in exifObj) {
     zerothIfd = exifObj["0th"];
